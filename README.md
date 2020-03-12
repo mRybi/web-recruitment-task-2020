@@ -17,6 +17,34 @@ Some books are part of a special offer (have set property `specialOffer` to `tru
 ### API 
 Actual URL of the API is: https://dor-web-book-store-api.herokuapp.com
 
+#### Get all books
+
+```/get-all-books```
+
+return all books from JSON file
+
+
+#### Get books
+
+```/get-books```
+
+This endpoint return books grouped by pages
+
+Arguments:
+- page - actual page to receive - started from 1.
+- limit - number of elements in page
+
+
+
+#### Search books by title
+
+```/search-books```
+
+This endpoint return all books that includes search pharse
+
+Arguments:
+- q - search pharse. If not provider returns all available books.
+
 ### Technical summary
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 - This project includes [bulma](https://bulma.io) CSS framework.
