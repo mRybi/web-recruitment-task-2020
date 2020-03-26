@@ -2,18 +2,23 @@ import React from "react";
 import { BookListType } from "../../types";
 import { BookListItem } from "./BookListItem";
 
-export const BookList = ({ items }) => (
-    <div className="books_list">
-        {items.map(item => (
+export const BookList = ({ items, itemsInCart }) => {
+
+    const books = items.map(item => itemsInCart.includes(item) ? {...item, inCart: true} : {...item, inCart: false});
+
+    return (
+        <div className="books_list">
+        {books && books.map(item => (
             <div className="box" key={item.isbn}>
                 <BookListItem
-                    inCart={false}
+                    inCart={item.inCart}
                     item={item}
                 />
             </div>
         ))}
     </div>
-);
+    )
+};
 
 BookList.propTypes = {
     items: BookListType.isRequired,

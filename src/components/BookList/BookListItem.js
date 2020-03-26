@@ -1,10 +1,13 @@
 import React from "react";
+import { useDispatch } from 'react-redux'
 import PropTypes from "prop-types";
 import { BookType } from "../../types";
+import { addToCartAction } from '../../actions/getBooks';
 
 const defaultImage = "https://picsum.photos/128";
 
 export const BookListItem = ({ item, inCart }) => {
+    const dispatch = useDispatch();
     const {
         title,
         thumbnailUrl,
@@ -13,6 +16,7 @@ export const BookListItem = ({ item, inCart }) => {
         price,
         specialOffer
     } = item;
+
     return (
         <article className="media">
             <div className="media-left">
@@ -38,7 +42,7 @@ export const BookListItem = ({ item, inCart }) => {
                     </div>
                     <p className="book_description">{shortDescription}</p>
                 </div>
-                <button className="button is-primary" onClick={() => console.log('To implemented')} disabled={inCart}>
+                <button className="button is-primary" onClick={() => dispatch(addToCartAction(item.isbn))} disabled={inCart}>
                     <span className="icon">
                         <i className="fas fa-cart-plus"></i>
                     </span>

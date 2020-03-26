@@ -32,3 +32,23 @@
 .book_special-offert {
     margin-left: 8px;
 }
+
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start
+}
+
+.search-item-title {
+    flex-grow: 8;
+}
+
+.search-item-input {
+    flex-grow: 4;
+    margin-right: 10px;
+}
+
+.search-item-button {
+    flex-grow: 1;
+}

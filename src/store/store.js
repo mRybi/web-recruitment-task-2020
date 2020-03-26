@@ -1,28 +1,28 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { devToolsEnhancer } from 'redux-devtools-extension';
+import rootReducer from "../reducers/rootReducer";
+import {addToCartAction, getBooksAction, getQueriedBooksAction} from "../actions/getBooks";
+import createSagaMiddleware from 'redux-saga'
 
-const INCREMENT = "INCREMENT";
-const DECREMENT = "DECREMENT";
+import rootSaga from '../sagas';
 
-const initialState = 0;
+// paginacja na dole currentPage w state jak sie zmieni to strzelaj po ?page=currentpage&limit=25
+const sagaMiddleware = createSagaMiddleware();
+export const store = createStore(rootReducer,compose(applyMiddleware(sagaMiddleware), devToolsEnhancer()));
+sagaMiddleware.run(rootSaga)
 
-const counter = (state = initialState, action) => {
-    switch (action.type) {
-        case INCREMENT:
-            return state + 1;
-        case DECREMENT:
-            return state - 1;
-        default:
-            return state;
-    }
-};
+// setTimeout(() => { store.dispatch(getBooksAction()); }, 2000);
 
-export const incrementAction = () => ({
-    type: INCREMENT
-});
+// store.dispatch(getBooksAction());
+// store.dispatch(getPaginatedBooksAction());
+// store.dispatch(getQueriedBooksAction());
 
-export const decrementAction = () => ({
-    type: DECREMENT
-});
 
-export const store = createStore(counter,0, devToolsEnhancer());
+
+// store.dispatch(addToCartAction("1617290084"));
+// store.dispatch(addToCartAction("1935182722"));
+
+// setTimeout(() => { store.dispatch({type: 'REMOVE_FROM_CART', payload: { isbn: "1617290084"}}); }, 2000);
+
+
+console.log(store.getState())
