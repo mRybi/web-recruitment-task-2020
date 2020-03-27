@@ -32,7 +32,7 @@ function App() {
     dispatch(getPaginatedBooksAction(1));
   }, []);
 
-  const handleSearch = useCallback((e) => {
+  const handleSearch = useCallback(() => {
     query.trim() == "" ? dispatch(getPaginatedBooksAction(1)) : dispatch(getQueriedBooksAction(query))
   }, [query])
 
