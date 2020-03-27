@@ -1,1 +1,1 @@
-export const priceFormatter = price => `$${price}`;
+export const priceFormatter = (price) => `$${price}`;
