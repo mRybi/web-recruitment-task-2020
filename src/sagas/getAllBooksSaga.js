@@ -1,20 +1,17 @@
 import { put, call, takeEvery } from "redux-saga/effects";
-import {
-  getBooksActionSuccess,
-  getBooksActionError,
-} from "../actions";
+import { actions } from "../actions";
 import { fetchAllBooks } from "../api";
-import { GET_BOOKS } from "../constants";
+import { types } from "../constants";
 
 export function* getAllBooksSaga() {
   try {
     const books = yield call(fetchAllBooks);
-    yield put(getBooksActionSuccess(books));
+    yield put(actions.setBooksActionSuccess(books));
   } catch (error) {
-    yield put(getBooksActionError(error.toString()));
+    yield put(actions.setBooksActionError(error.toString()));
   }
 }
 
 export default function* watchGetAllBooksLoad() {
-  yield takeEvery(GET_BOOKS, getAllBooksSaga);
+  yield takeEvery(types.GET_BOOKS, getAllBooksSaga);
 }

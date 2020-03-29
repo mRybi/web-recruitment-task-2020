@@ -1,44 +1,45 @@
-import {
-  GET_BOOKS,
-  ADD_TO_CART,
-  REMOVE_FROM_CART,
-  GET_BOOKS_SUCCESS,
-  GET_BOOKS_ERROR,
-  GET_PAGINATED_BOOKS,
-  GET_QUERIED_BOOKS
-} from "../constants";
+import { types } from "../constants";
 
-export const getBooksAction = () => ({
-  type: GET_BOOKS,
+const getBooksAction = () => ({
+  type: types.GET_BOOKS,
 });
 
-export const getPaginatedBooksAction = (page) => ({
-  type: GET_PAGINATED_BOOKS,
-  page
+const getPaginatedBooksAction = (page) => ({
+  type: types.GET_PAGINATED_BOOKS,
+  page,
 });
 
-export const getQueriedBooksAction = (query) => ({
-  type: GET_QUERIED_BOOKS,
+const getQueriedBooksAction = (query) => ({
+  type: types.GET_QUERIED_BOOKS,
   query,
 });
 
-export const getBooksActionSuccess = (books) => ({
-  type: GET_BOOKS_SUCCESS,
+const setBooksActionSuccess = (books) => ({
+  type: types.SET_BOOKS_SUCCESS,
   books,
 });
 
-export const getBooksActionError = (error) => ({
-  type: GET_BOOKS_ERROR,
+const setBooksActionError = (error) => ({
+  type: types.SET_BOOKS_ERROR,
   error,
 });
 
-export const addToCartAction = (isbn) => ({
-  type: ADD_TO_CART,
+const addToCartAction = (isbn) => ({
+  type: types.ADD_TO_CART,
   payload: { isbn },
 });
 
-export const removeFromCart = (isbn) => ({
-  type: REMOVE_FROM_CART,
+const removeFromCart = (isbn) => ({
+  type: types.REMOVE_FROM_CART,
   payload: { isbn },
 });
 
+export const actions = {
+  getBooksAction,
+  getPaginatedBooksAction,
+  getQueriedBooksAction,
+  setBooksActionSuccess,
+  setBooksActionError,
+  addToCartAction,
+  removeFromCart,
+};

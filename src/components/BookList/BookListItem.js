@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { BookType } from "../../types";
-import { addToCartAction } from "../../actions";
+import { actions } from "../../actions";
 
 const defaultImage = "https://picsum.photos/128";
 
@@ -40,7 +40,7 @@ export const BookListItem = ({ item, inCart }) => {
         </div>
         <button
           className="button is-primary"
-          onClick={() => dispatch(addToCartAction(item.isbn))}
+          onClick={() => dispatch(actions.addToCartAction(item.isbn))}
           disabled={inCart}
         >
           <span className="icon">

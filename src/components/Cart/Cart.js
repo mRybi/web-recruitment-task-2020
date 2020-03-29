@@ -3,7 +3,7 @@ import { EmptyCart } from "./EmptyCart";
 import { CartItemsList } from "./CartItemsList";
 import { priceFormatter } from "../../helpers";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../../actions";
+import { actions } from "../../actions";
 
 const calculateDiscount = (items) => {
   const specialOfferItems = items.filter((item) => item.specialOffer);
@@ -24,37 +24,45 @@ export const Cart = () => {
   const subTotal = cartRedux
     .reduce((sum, item) => sum + item.price, 0)
     .toFixed(2);
-  const discout = calculateDiscount(cartRedux);
-  const total = (subTotal - discout).toFixed(2);
+  const discount = calculateDiscount(cartRedux);
+  const total = (subTotal - discount).toFixed(2);
   return (
     <div className="tile is-parent">
       <div className="tile is-child box">
-        <h4 className="title is-4">Your cart</h4>
+        <h4 data-testid="cart-header" className="title is-4">
+          Your cart
+        </h4>
         <hr />
         {cartRedux.length === 0 ? (
           <EmptyCart />
         ) : (
           <CartItemsList
             items={cartRedux}
-            onRemoveItem={(isbn) => dispatch(removeFromCart(isbn))}
+            onRemoveItem={(isbn) => dispatch(actions.removeFromCart(isbn))}
           />
         )}
         <div className="columns">
           <div className="column">Subtotal:</div>
-          <div className="column has-text-right is-size-6">
+          <div
+            data-testid="subtotal"
+            className="column has-text-right is-size-6"
+          >
             {priceFormatter(subTotal)}
           </div>
         </div>
         <div className="columns">
           <div className="column">Discount:</div>
-          <div className="column has-text-right is-size-6">
-            {priceFormatter(discout)}
+          <div
+            data-testid="discount"
+            className="column has-text-right is-size-6"
+          >
+            {priceFormatter(discount)}
           </div>
         </div>
         <div className="columns">
           <div className="column">Total:</div>
           <div className="column  has-text-right is-size-4">
-            <strong>{priceFormatter(total)}</strong>
+            <strong data-testid="total">{priceFormatter(total)}</strong>
           </div>
         </div>
       </div>

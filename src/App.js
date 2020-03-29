@@ -6,10 +6,7 @@ import { Cart } from "./components/Cart";
 import { Layout } from "./components/Layout";
 import { BookList } from "./components/BookList";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getQueriedBooksAction,
-  getPaginatedBooksAction
-} from "./actions";
+import { actions } from "./actions";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -20,21 +17,24 @@ function App() {
     currentPage,
     isFetching,
     hasError,
-    searchQuery
-  } = useSelector(state => state);
+    searchQuery,
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const itemsPerPage = 10;
-  const howManyPages = Math.ceil(allBooksAmount / itemsPerPage);
-  const pages = Array.from(Array(howManyPages).keys()).map(page => page + 1);
+  const howManyPages =
+    allBooksAmount !== 0 && Math.ceil(allBooksAmount / itemsPerPage);
+  const pages = Array.from(Array(howManyPages).keys()).map((page) => page + 1);
 
   useEffect(() => {
-    dispatch(getPaginatedBooksAction(1));
+    dispatch(actions.getPaginatedBooksAction(1));
   }, []);
 
   const handleSearch = useCallback(() => {
-    query.trim() == "" ? dispatch(getPaginatedBooksAction(1)) : dispatch(getQueriedBooksAction(query))
-  }, [query])
+    query.trim() == ""
+      ? dispatch(actions.getPaginatedBooksAction(1))
+      : dispatch(actions.getQueriedBooksAction(query));
+  }, [query]);
 
   return (
     <Layout aside={<Cart />}>
@@ -49,10 +49,10 @@ function App() {
                   className="input"
                   type="text"
                   placeholder="Search for book"
-                  onChange={e => setQuery(e.target.value)}
-                  onKeyDown={e => {
-                    if(e.keyCode === 13) {
-                      handleSearch()                    
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 13) {
+                      handleSearch();
                     }
                   }}
                 />
@@ -81,12 +81,15 @@ function App() {
           {!searchQuery && (
             <div className="field paginated-buttons">
               {pages.length > 0 &&
-                pages.map(page => (
+                pages.map((page) => (
                   <p key={page} className="control">
                     <button
-                      className={`button ${page === currentPage &&
-                        "is-active"}`}
-                      onClick={() => dispatch(getPaginatedBooksAction(page))}
+                      className={`button ${
+                        page === currentPage && "is-active"
+                      }`}
+                      onClick={() =>
+                        dispatch(actions.getPaginatedBooksAction(page))
+                      }
                     >
                       {page}
                     </button>
@@ -95,11 +98,12 @@ function App() {
             </div>
           )}
 
-          {currentBooks.length === 0 && searchQuery != "" && 
-          <div className="notification is-warning is-light">
-            There is no books in store that match your query. Try with something else.
-          </div>
-        }
+          {currentBooks.length === 0 && searchQuery != "" && (
+            <div className="notification is-warning is-light">
+              There is no books in store that match your query. Try with
+              something else.
+            </div>
+          )}
         </div>
       </div>
     </Layout>

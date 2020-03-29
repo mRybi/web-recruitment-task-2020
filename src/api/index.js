@@ -14,6 +14,7 @@ export const fetchAllBooks = async () => {
 };
 
 export const fetchBooksPaginated = async (page, limit) => {
+  console.log("QQQQQ");
   const response = await fetch(
     `${API_URL}/${PAGINATION}?page=${page}&limit=${limit}`
   );
@@ -31,6 +32,6 @@ export const fetchBooksWithSearch = async (query) => {
   if (response.status >= 400) {
     throw new Error(data.errors);
   }
-  
+
   return data;
 };

@@ -9,10 +9,14 @@ export const CartItem = ({ item, onRemove }) => {
 
   return (
     <tr className="cart_price-row">
-      <td>{title}</td>
-      <td>{priceFormatter(price)}</td>
+      <td data-testid="title">{title}</td>
+      <td data-testid="price">{priceFormatter(price)}</td>
       <td>
-        <button className="button is-danger is-inverted" onClick={handleRemove}>
+        <button
+          data-testid="remove-button"
+          className="button is-danger is-inverted"
+          onClick={handleRemove}
+        >
           <span className="icon">
             <i className="fas fa-trash"></i>
           </span>
