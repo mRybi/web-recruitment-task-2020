@@ -8,7 +8,7 @@ export function* getAllBooksSaga() {
     const books = yield call(fetchAllBooks);
     yield put(actions.setBooksActionSuccess(books));
   } catch (error) {
-    yield put(actions.setBooksActionError(error.toString()));
+    yield put(actions.setBooksActionError(error));
   }
 }
 

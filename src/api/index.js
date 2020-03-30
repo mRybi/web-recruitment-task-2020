@@ -4,34 +4,33 @@ const PAGINATION = `get-books`;
 const SEARCH = `search-books`;
 
 export const fetchAllBooks = async () => {
-  const response = await fetch(`${API_URL}/${ALL}`);
-  const data = await response.json();
-  if (response.status >= 400) {
-    throw new Error(data.errors);
+  try {
+    const response = await fetch(`${API_URL}/${ALL}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error);
   }
-
-  return data;
 };
 
 export const fetchBooksPaginated = async (page, limit) => {
-  console.log("QQQQQ");
-  const response = await fetch(
-    `${API_URL}/${PAGINATION}?page=${page}&limit=${limit}`
-  );
-  const data = await response.json();
-  if (response.status >= 400) {
-    throw new Error(data.errors);
+  try {
+    const response = await fetch(
+      `${API_URL}/${PAGINATION}?page=${page}&limit=${limit}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error);
   }
-
-  return data;
 };
 
-export const fetchBooksWithSearch = async (query) => {
-  const response = await fetch(`${API_URL}/${SEARCH}?q=${query}`);
-  const data = await response.json();
-  if (response.status >= 400) {
-    throw new Error(data.errors);
+export const fetchBooksWithSearch = async query => {
+  try {
+    const response = await fetch(`${API_URL}/${SEARCH}?q=${query}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error);
   }
-
-  return data;
 };

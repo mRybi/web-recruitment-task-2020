@@ -3,12 +3,12 @@ import { actions } from "../actions";
 import { fetchBooksWithSearch } from "../api";
 import { types } from "../constants";
 
-export function* getQueriedBooksSaga(action) {
+export function* getQueriedBooksSaga(action = '') {
   try {
     const books = yield call(fetchBooksWithSearch, action.query);
     yield put(actions.setBooksActionSuccess(books));
   } catch (error) {
-    yield put(actions.setBooksActionError(error.toString()));
+    yield put(actions.setBooksActionError(error));
   }
 }
 

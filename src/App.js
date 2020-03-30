@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   const handleSearch = useCallback(() => {
-    query.trim() == ""
+    query.trim() === ""
       ? dispatch(actions.getPaginatedBooksAction(1))
       : dispatch(actions.getQueriedBooksAction(query));
   }, [query]);
@@ -98,7 +98,7 @@ function App() {
             </div>
           )}
 
-          {currentBooks.length === 0 && searchQuery != "" && (
+          {currentBooks.length === 0 && searchQuery !== "" && (
             <div className="notification is-warning is-light">
               There is no books in store that match your query. Try with
               something else.

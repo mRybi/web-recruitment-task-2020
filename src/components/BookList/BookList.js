@@ -15,7 +15,7 @@ export const BookList = ({ items, itemsInCart }) => {
     <div className="books_list">
       {books &&
         books.map((item) => (
-          <div className="box" key={item.isbn}>
+          <div data-testid="book-list-item" className="box" key={item.isbn}>
             <BookListItem inCart={item.inCart} item={{ ...item }} />
           </div>
         ))}

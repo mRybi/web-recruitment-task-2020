@@ -3,13 +3,12 @@ import { actions } from "../actions";
 import { fetchBooksPaginated } from "../api";
 import { types } from "../constants";
 
-export function* getPaginatedBooksSaga(action) {
+export function* getPaginatedBooksSaga(action = 1) {
   try {
     const books = yield call(fetchBooksPaginated, action.page, 10);
-    console.log("QQQQsaga", books);
     yield put(actions.setBooksActionSuccess(books));
   } catch (error) {
-    yield put(actions.setBooksActionError(error.toString()));
+    yield put(actions.setBooksActionError(error));
   }
 }
 
